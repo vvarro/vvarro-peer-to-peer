@@ -4,13 +4,11 @@ import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 
 public class Log {
-
+  long dateandtime;
+  String loglevel;
+  String request;
   String path;
   String method;
-  long dateandtime;
-  String request;
-  String loglevel;
-  String requestdata;
   String message;
 
   public Log(HttpServletRequest request) throws ParseException {
@@ -52,14 +50,6 @@ public class Log {
 
   public void setLoglevel(String loglevel) {
     this.loglevel = loglevel;
-  }
-
-  public String getRequestdata() {
-    return requestdata;
-  }
-
-  public void setRequestdata(String requestdata) {
-    this.requestdata = requestdata;
   }
 
   public String getRequest() {
