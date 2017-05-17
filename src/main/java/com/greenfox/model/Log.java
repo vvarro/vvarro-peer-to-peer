@@ -14,8 +14,8 @@ public class Log {
   String message;
 
   public Log(HttpServletRequest request) throws ParseException {
-    this.dateandtime = (request.getSession().getCreationTime());
-    this.loglevel = System.getProperty("CHAT_APP_LOGLEVEL");
+    this.dateandtime = request.getSession().getCreationTime();
+    this.loglevel = System.getenv("CHAT_APP_LOGLEVEL");
     this.request = "Request";
     this.path = request.getServletPath();
     this.method = request.getMethod();
@@ -62,7 +62,24 @@ public class Log {
     this.requestdata = requestdata;
   }
 
-  public String toString(){
-    St
+  public String getRequest() {
+    return request;
+  }
+
+  public void setRequest(String request) {
+    this.request = request;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public String toString() {
+    return getDateandtime() + getLoglevel().toString() + getRequest() + getPath().toString() + getMethod()
+        .toString() + getMessage().toString();
   }
 }
