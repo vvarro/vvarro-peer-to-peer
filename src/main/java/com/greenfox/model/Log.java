@@ -77,9 +77,4 @@ public class Log {
   public void setMessage(String message) {
     this.message = message;
   }
-
-  public String toString() {
-    return getDateandtime() + getLoglevel().toString() + getRequest() + getPath().toString() + getMethod()
-        .toString() + getMessage().toString();
-  }
 }
