@@ -13,11 +13,11 @@ public class Log {
 
   public Log(HttpServletRequest request) throws ParseException {
     this.dateandtime = request.getSession().getCreationTime();
-    this.loglevel = System.getenv("CHAT_APP_LOGLEVEL");
+    this.loglevel = String.valueOf(System.getenv("CHAT_APP_LOGLEVEL"));
     this.request = "Request";
-    this.path = request.getServletPath();
-    this.method = request.getMethod();
-    this.message = request.getPathInfo();
+    this.path = String.valueOf(request.getServletPath());
+    this.method = String.valueOf(request.getMethod());
+    this.message = String.valueOf(request.getPathInfo());
   }
 
   public String getPath() {

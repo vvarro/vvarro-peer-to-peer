@@ -15,7 +15,7 @@ public class MainController {
     System.err.println("ERROR");
     } else {
       Log log = new Log(request);
-      System.out.println(log);
+      System.out.println(log.toString());
     }
     return "index";
   }
