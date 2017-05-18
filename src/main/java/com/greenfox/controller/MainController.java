@@ -15,7 +15,7 @@ public class MainController {
     System.err.println("ERROR");
     } else {
       Log log = new Log(request);
-      System.out.println("mostmukodik");
+      System.out.println(log.toString());
     }
     return "index";
   }
