@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 public class Log {
   long dateandtime;
   String loglevel;
-  String request;
   String path;
   String method;
   String message;
@@ -14,7 +13,6 @@ public class Log {
   public Log(HttpServletRequest request) throws ParseException {
     this.dateandtime = request.getSession().getCreationTime();
     this.loglevel = String.valueOf(System.getenv("CHAT_APP_LOGLEVEL"));
-    this.request = "Request";
     this.path = String.valueOf(request.getServletPath());
     this.method = String.valueOf(request.getMethod());
     this.message = String.valueOf(request.getPathInfo());
@@ -52,14 +50,6 @@ public class Log {
     this.loglevel = loglevel;
   }
 
-  public String getRequest() {
-    return request;
-  }
-
-  public void setRequest(String request) {
-    this.request = request;
-  }
-
   public String getMessage() {
     return message;
   }
@@ -70,7 +60,7 @@ public class Log {
 
   @Override
   public String toString(){
-   return getDateandtime() + getLoglevel() + getRequest() + getPath() + getMethod() + getMessage();
+   return getDateandtime() + getLoglevel() + getPath() + getMethod() + getMessage();
   }
 
 }
