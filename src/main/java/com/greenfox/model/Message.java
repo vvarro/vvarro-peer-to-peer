@@ -1,6 +1,7 @@
 package com.greenfox.model;
 
 import java.sql.Timestamp;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,8 +11,11 @@ import javax.persistence.Table;
 public class Message {
   @Id
   long id;
+  @Column(nullable = false)
   String username;
+  @Column(nullable = false)
   String text;
+  @Column(nullable = false)
   Timestamp timestamp;
 
   public Message() {
@@ -19,7 +23,7 @@ public class Message {
   }
 
   public Message(long id, String username, String text, Timestamp timestamp) {
-    this.id = id;
+    this.id = this.id = 1000000 + (int) (Math.random() * (99999999 - 1000000));
     this.username = username;
     this.text = text;
     this.timestamp = new Timestamp(System.currentTimeMillis());

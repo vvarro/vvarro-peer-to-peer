@@ -1,17 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Getting Started: Serving Web Content</title>
+  <title>P2P App</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<p th:text="${error}"></p>
 <h1>Enter</h1>
-<span>
-  <label> Choose your name:</label>
-    <form method="post" action="/enter/add">
+    <form method="post" th:action="@{/enter/add}">
+        <span> Choose your name:</span>
       <input th:type="text" name="newuser"/>
       <input th:type="submit" value="Enter"/>
     </form>
-  </span>
 </body>
 </html>
