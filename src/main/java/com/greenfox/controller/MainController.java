@@ -29,6 +29,7 @@ public class MainController {
     if (userRepository.count() == 0) {
       return "redirect:/enter";
     } else {
+      model.addAttribute("error", errorNoUser);
       model.addAttribute("username", userRepository.findOne((long) 1).getName());
       model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "index";
@@ -43,7 +44,6 @@ public class MainController {
       return "redirect:/enter";
     } else if (newUsername.isEmpty()) {
       errorNoUser = "The username field is empty";
-      model.addAttribute("error", errorNoUser);
       return "redirect:/";
     } else {
       userRepository.findOne((long) 1).setName(newUsername);

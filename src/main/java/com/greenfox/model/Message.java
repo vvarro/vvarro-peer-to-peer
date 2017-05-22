@@ -15,7 +15,6 @@ public class Message {
   Timestamp timestamp;
 
   public Message() {
-    this.timestamp = new Timestamp(System.currentTimeMillis());
   }
 
   public Message(long id, String username, String text, Timestamp timestamp) {
