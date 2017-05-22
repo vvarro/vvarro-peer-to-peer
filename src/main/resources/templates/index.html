@@ -5,6 +5,25 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<p th:text="${error}"></p>
 <h1>Peer to Peer Chat program</h1>
+<form method="get" th:action="@{/update}">
+  <span> Your username:</span>
+  <input th:type="text" name="newusername" th:placeholder="${username}"/>
+  <input th:type="submit" value="update"/>
+</form>
+
+<ul>
+  <li th:each="message : ${messages}">
+    <p><span th:text="${message.username}"></span></p>
+    <p><span th:text="${message.text}"></span></p>
+  </li>
+</ul>
+
+<form method="post" th:action="@{/send}">
+  <input type="text" name="send"/>
+  <button type="submit">Send</button>
+</form>
+<a th:href="@{'/'}">Refresh</a>
 </body>
 </html>
