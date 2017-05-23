@@ -24,7 +24,7 @@ public class RecievedMessageController {
   @CrossOrigin("*")
   public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage) {
     MessageValidator messageValidator = new MessageValidator();
-    if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
+    if(messageValidator.validate(clientMessage).getStatus().equals("ok") && clientMessage.getClient().getId().equals(uniqueId)){
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       messageRepository.save(clientMessage.getMessage());
