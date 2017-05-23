@@ -33,7 +33,9 @@ public class MainController {
       return "redirect:/enter";
     } else {
       model.addAttribute("error", errorNoUser);
-      mainControllerService.addAttribute(model);
+//      mainControllerService.addAttribute(model);
+      model.addAttribute("username", userRepository.findOne((long) 1).getName());
+      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "index";
     }
   }
@@ -50,7 +52,9 @@ public class MainController {
     } else {
       userRepository.findOne((long) 1).setName(newUsername);
       userRepository.save(userRepository.findOne((long) 1));
-      mainControllerService.addAttribute(model);
+//      mainControllerService.addAttribute(model);
+      model.addAttribute("username", userRepository.findOne((long) 1).getName());
+      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "index";
     }
   }
@@ -69,7 +73,9 @@ public class MainController {
 //      RestTemplate restTemplate = new RestTemplate();
 //      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
 //      messageRepository.save(new Message(send, userRepository.findOne((long) 1).getName()));
-      mainControllerService.addAttribute(model);
+//      mainControllerService.addAttribute(model);
+      model.addAttribute("username", userRepository.findOne((long) 1).getName());
+      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "redirect:/";
     }
   }

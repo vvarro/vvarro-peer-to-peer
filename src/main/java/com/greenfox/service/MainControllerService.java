@@ -18,7 +18,7 @@ public class MainControllerService {
 
   public void addAttribute(Model model){
     model.addAttribute("username", userRepository.findOne((long) 1).getName());
-    model.addAttribute("messages", messageRepository.findAll());
+    model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
   }
 
   public void sendNewMessage(String send){
