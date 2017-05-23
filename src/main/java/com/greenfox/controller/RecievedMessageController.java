@@ -27,8 +27,8 @@ public class RecievedMessageController {
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !messageRepository.exists(clientMessage.getMessage().getId())){
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
+      messageRepository.save(clientMessage.getMessage());
     }
-    messageRepository.save(clientMessage.getMessage());
     return messageValidator.validate(clientMessage);
   }
 }
