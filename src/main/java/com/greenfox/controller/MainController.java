@@ -1,12 +1,9 @@
 package com.greenfox.controller;
 
 import com.greenfox.model.Log;
-import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.repository.UserRepository;
-import com.greenfox.service.ClientMessage;
 import com.greenfox.service.MainControllerService;
-import com.greenfox.service.ResponseMessage;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class MainController {
@@ -38,8 +34,6 @@ public class MainController {
     } else {
       model.addAttribute("error", errorNoUser);
       mainControllerService.addAttribute(model);
-//      model.addAttribute("username", userRepository.findOne((long) 1).getName());
-//      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "index";
     }
   }
@@ -57,8 +51,6 @@ public class MainController {
       userRepository.findOne((long) 1).setName(newUsername);
       userRepository.save(userRepository.findOne((long) 1));
       mainControllerService.addAttribute(model);
-//      model.addAttribute("username", userRepository.findOne((long) 1).getName());
-//      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "index";
     }
   }
@@ -70,15 +62,14 @@ public class MainController {
     if (userRepository.count() == 0) {
       return "redirect:/enter";
     } else {
-      ClientMessage clientMessage = new ClientMessage();
-      clientMessage.getClient().setId(userRepository.findOne((long) 1).getName());
-      clientMessage.setMessage(new Message(send, userRepository.findOne((long) 1).getName()));
-      RestTemplate restTemplate = new RestTemplate();
-      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
-      messageRepository.save(new Message(send, userRepository.findOne((long) 1).getName()));
+      mainControllerService.sendNewMessage(send);
+//      ClientMessage clientMessage = new ClientMessage();
+//      clientMessage.getClient().setId(userRepository.findOne((long) 1).getName());
+//      clientMessage.setMessage(new Message(send, userRepository.findOne((long) 1).getName()));
+//      RestTemplate restTemplate = new RestTemplate();
+//      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
+//      messageRepository.save(new Message(send, userRepository.findOne((long) 1).getName()));
       mainControllerService.addAttribute(model);
-//      model.addAttribute("username", userRepository.findOne((long) 1).getName());
-//      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "redirect:/";
     }
   }
