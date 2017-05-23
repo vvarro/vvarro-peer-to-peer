@@ -68,12 +68,11 @@ public class MainController {
     } else {
       Client client = new Client();
       Message message = new Message(send,userRepository.findOne((long) 1).getName());
+      messageRepository.save(message);
       ClientMessage clientMessage = new ClientMessage(client, message);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
-      messageRepository.save(message);
       return "redirect:/";
     }
   }
-
 }

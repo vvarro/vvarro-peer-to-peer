@@ -25,7 +25,7 @@ public class MessageValidator {
     if (clientMessage.getMessage().getTimestamp() == null) {
       missingParams.add("message.timestamp");
     }
-    if (clientMessage.getMessage().getId() == 0) {
+    if (clientMessage.getMessage().getId() == 0L) {
       missingParams.add("message.id");
     }
     if (missingParams.size() == 0) {
