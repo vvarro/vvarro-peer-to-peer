@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Table(name = "messages")
 @Entity
 public class Message {
+
   @Id
   long id;
   String username;
