@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 public class RecievedMessageController {
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
   private static final String url = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
-  private static final String privateId = System.getenv("CHAT_APP_UNIQUE_ID");
+  private static final String uniqueId = System.getenv("CHAT_APP_UNIQUE_ID");
 
   @Autowired
   private MessageRepository messageRepository;
@@ -24,7 +24,7 @@ public class RecievedMessageController {
   @CrossOrigin("*")
   public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage) {
     MessageValidator messageValidator = new MessageValidator();
-    if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !messageRepository.exists(clientMessage.getMessage().getId())){
+    if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       messageRepository.save(clientMessage.getMessage());
