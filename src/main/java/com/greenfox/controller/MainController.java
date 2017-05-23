@@ -4,6 +4,7 @@ import com.greenfox.model.Log;
 import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.repository.UserRepository;
+import com.greenfox.service.ClientMessage;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,14 +63,12 @@ public class MainController {
     if (userRepository.count() == 0) {
       return "redirect:/enter";
     } else {
-//      ClientMessage clientMessage = new ClientMessage();
-//      clientMessage.getClient().setId(userRepository.findOne((long) 1).getName());
-//      clientMessage.setMessage(new Message(send, userRepository.findOne((long) 1).getName()));
+      ClientMessage clientMessage = new ClientMessage();
+      clientMessage.getClient().setId(userRepository.findOne((long) 1).getName());
+      clientMessage.setMessage(new Message(send, userRepository.findOne((long) 1).getName()));
 //      RestTemplate restTemplate = new RestTemplate();
 //      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       messageRepository.save(new Message(send, userRepository.findOne((long) 1).getName()));
-//      model.addAttribute("username", userRepository.findOne((long) 1).getName());
-//      model.addAttribute("messages", messageRepository.findAllByOrderByTimestampAsc());
       return "redirect:/";
     }
   }
