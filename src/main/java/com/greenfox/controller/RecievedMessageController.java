@@ -1,5 +1,6 @@
 package com.greenfox.controller;
 
+import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.ClientMessage;
 import com.greenfox.service.MessageValidator;
@@ -25,10 +26,10 @@ public class RecievedMessageController {
   public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage) {
     MessageValidator messageValidator = new MessageValidator();
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
-
       RestTemplate restTemplate = new RestTemplate();
+      Message recievedMessage = clientMessage.getMessage();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
-      messageRepository.save(clientMessage.getMessage());
+      messageRepository.save(recievedMessage);
     }
     return messageValidator.validate(clientMessage);
   }
