@@ -29,7 +29,7 @@ public class RecievedMessageController {
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       messageRepository.save(clientMessage.getMessage());
-    } 
+    }
     return messageValidator.validate(clientMessage);
   }
 }
