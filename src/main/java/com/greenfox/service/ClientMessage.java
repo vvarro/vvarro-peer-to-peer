@@ -10,6 +10,11 @@ public class ClientMessage {
   public ClientMessage() {
   }
 
+  public ClientMessage(Client client, Message message) {
+    this.client = client;
+    this.message = message;
+  }
+
   public Client getClient() {
     return client;
   }

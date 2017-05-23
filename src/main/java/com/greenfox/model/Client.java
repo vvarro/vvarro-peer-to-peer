@@ -3,18 +3,16 @@ package com.greenfox.model;
 public class Client {
   String id;
 
-  public Client(String id) {
-    this.id = id;
+  public Client() {
+    this.id = System.getenv("CHAT_APP_UNIQUE_ID");
   }
 
-  public Client() {
-  }
 
   public String getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId() {
     this.id = id;
   }
 }
