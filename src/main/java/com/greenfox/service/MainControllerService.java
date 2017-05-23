@@ -6,7 +6,6 @@ import com.greenfox.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-import org.springframework.web.client.RestTemplate;
 
 @Component
 public class MainControllerService {
@@ -26,8 +25,8 @@ public class MainControllerService {
     ClientMessage clientMessage = new ClientMessage();
     clientMessage.getClient().setId(userRepository.findOne((long) 1).getName());
     clientMessage.setMessage(new Message(send, userRepository.findOne((long) 1).getName()));
-    RestTemplate restTemplate = new RestTemplate();
-    restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
+   // RestTemplate restTemplate = new RestTemplate();
+   // restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
     messageRepository.save(new Message(send, userRepository.findOne((long) 1).getName()));
   }
 }
