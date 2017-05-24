@@ -17,7 +17,7 @@ public class RecievedMessageController {
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
   private static final String url = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
   private static final String uniqueId = System.getenv("CHAT_APP_UNIQUE_ID");
-  private static final String projectUrl = "/";
+  private static final String projectUrl = "https://vvarro-p2p.herokuapp.com";
 
   @Autowired
   private MessageRepository messageRepository;
