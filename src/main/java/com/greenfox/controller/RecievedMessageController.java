@@ -5,7 +5,6 @@ import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import com.greenfox.service.ResponseMessage;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class RecievedMessageController {
   private static String logLevel = System.getenv("CHAT_APP_LOGLEVEL");
   private static final String url = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
   private static final String uniqueId = System.getenv("CHAT_APP_UNIQUE_ID");
+  private static final String projectUrl = "https://vvarro-p2p.herokuapp.com";
 
   @Autowired
   private MessageRepository messageRepository;
@@ -38,8 +39,8 @@ public class RecievedMessageController {
   }
 
   @RequestMapping(value = "/api/message/receive", method = RequestMethod.GET)
-  public void method(HttpServletResponse httpServletResponse) {
-    String projectUrl = "https://vvarro-p2p.herokuapp.com/";
-    httpServletResponse.setHeader("Location", projectUrl);
+  public ModelAndView method() {
+    return new ModelAndView("redirect:" + projectUrl);
+
   }
 }
