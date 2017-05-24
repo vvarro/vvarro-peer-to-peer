@@ -6,6 +6,7 @@
 </head>
 <body>
 <p th:text="${error}"></p>
+response.setIntHeader("Refresh", 2);
 <h1>Peer to Peer Chat program</h1>
 <form method="get" th:action="@{/update}">
   <span> Your username:</span>
