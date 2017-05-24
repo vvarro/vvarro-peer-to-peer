@@ -5,12 +5,13 @@ import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import com.greenfox.service.ResponseMessage;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,10 +26,8 @@ public class RecievedMessageController {
 
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
-  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage, HttpServletResponse httpServletResponse)
-      throws IOException {
+  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage){
     MessageValidator messageValidator = new MessageValidator();
-    httpServletResponse.sendRedirect("https://vvarro-p2p.herokuapp.com");
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
       Message receivedMessage = clientMessage.getMessage();
       messageRepository.save(receivedMessage);
@@ -38,4 +37,9 @@ public class RecievedMessageController {
     return messageValidator.validate(clientMessage);
   }
 
+  @RequestMapping(value = "/api/message/receive", method = RequestMethod.GET)
+  public void method(HttpServletResponse httpServletResponse) {
+    String projectUrl = "https://vvarro-p2p.herokuapp.com/";
+    httpServletResponse.setHeader("Location", projectUrl);
+  }
 }
