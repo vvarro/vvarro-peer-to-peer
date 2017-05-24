@@ -8,7 +8,6 @@ import com.greenfox.service.MessageValidator;
 import com.greenfox.service.ResponseMessage;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,17 +27,17 @@ public class RecievedMessageController {
 
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
-  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage, HttpServletRequest req, HttpServletResponse res)
+  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage, HttpServletResponse res)
       throws ServletException, IOException {
     MessageValidator messageValidator = new MessageValidator();
     GoTo redirect = new GoTo();
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
       Message receivedMessage = clientMessage.getMessage();
       messageRepository.save(receivedMessage);
-      redirect.doGet(req, res);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
     }
+    redirect.doGet(res);
     return messageValidator.validate(clientMessage);
   }
 
