@@ -34,7 +34,7 @@ public class RecievedMessageController {
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       HttpHeaders headers = new HttpHeaders();
-      headers.setLocation(URI.create(projectUrl));
+      headers.setLocation(URI.create("/"));
     }
     return messageValidator.validate(clientMessage);
   }
