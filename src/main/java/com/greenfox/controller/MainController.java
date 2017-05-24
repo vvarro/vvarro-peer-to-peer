@@ -5,7 +5,7 @@ import com.greenfox.model.Log;
 import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.repository.UserRepository;
-import com.greenfox.service.ClientMessage;
+import com.greenfox.model.ClientMessage;
 import com.greenfox.service.ResponseMessage;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +75,5 @@ public class MainController {
       return "redirect:/";
     }
   }
-  
+
 }

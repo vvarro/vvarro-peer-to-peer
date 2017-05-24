@@ -1,7 +1,4 @@
-package com.greenfox.service;
-
-import com.greenfox.model.Client;
-import com.greenfox.model.Message;
+package com.greenfox.model;
 
 public class ClientMessage {
   public Client client;

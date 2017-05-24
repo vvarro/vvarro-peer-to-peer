@@ -1,5 +1,6 @@
 package com.greenfox.service;
 
+import com.greenfox.model.ClientMessage;
 import java.util.ArrayList;
 import java.util.List;
 
