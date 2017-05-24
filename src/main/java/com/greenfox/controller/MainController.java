@@ -74,7 +74,6 @@ public class MainController {
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       return "redirect:/";
     }
-    
   }
 
 }
