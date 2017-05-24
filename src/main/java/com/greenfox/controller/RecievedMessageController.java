@@ -1,13 +1,11 @@
 package com.greenfox.controller;
 
 import com.greenfox.model.ClientMessage;
-import com.greenfox.model.GoTo;
 import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import com.greenfox.service.ResponseMessage;
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,17 +25,16 @@ public class RecievedMessageController {
 
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
-  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage, HttpServletResponse res)
-      throws ServletException, IOException {
+  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage, HttpServletResponse httpServletResponse)
+      throws IOException {
     MessageValidator messageValidator = new MessageValidator();
-    GoTo redirect = new GoTo();
+    httpServletResponse.sendRedirect("https://vvarro-p2p.herokuapp.com");
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
       Message receivedMessage = clientMessage.getMessage();
       messageRepository.save(receivedMessage);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
     }
-    redirect.doGet(res);
     return messageValidator.validate(clientMessage);
   }
 
