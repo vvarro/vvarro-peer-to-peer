@@ -19,14 +19,14 @@ public class Message {
   }
 
   public Message(long id, String username, String text, Timestamp timestamp) {
-    this.id = 1000000 + (int) (Math.random() * (99999999 - 1000000));
+    this.id = 1000000 + (int) (Math.random() * (9999999 - 1000000));
     this.username = username;
     this.text = text;
     this.timestamp = new Timestamp(System.currentTimeMillis());
   }
 
   public Message(String text, String username) {
-    this.id = 1000000 + (int) (Math.random() * (99999999 - 1000000));
+    this.id = 1000000 + (int) (Math.random() * (9999999 - 1000000));
     this.text = text;
     this.username = username;
     this.timestamp = new Timestamp(System.currentTimeMillis());
