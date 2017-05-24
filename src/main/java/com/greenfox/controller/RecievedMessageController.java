@@ -9,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class RecievedMessageController {
@@ -34,13 +31,9 @@ public class RecievedMessageController {
       messageRepository.save(receivedMessage);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
+      restTemplate.headForHeaders(projectUrl);
     }
     return messageValidator.validate(clientMessage);
   }
 
-  @RequestMapping(value = "/api/message/receive", method = RequestMethod.GET)
-  public ModelAndView method() {
-    return new ModelAndView("redirect:" + projectUrl);
-
-  }
 }
