@@ -5,7 +5,9 @@ import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import com.greenfox.service.ResponseMessage;
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,8 @@ public class RecievedMessageController {
       messageRepository.save(receivedMessage);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
-      restTemplate.headForHeaders(projectUrl);
+      HttpHeaders headers = new HttpHeaders();
+      headers.setLocation(URI.create(projectUrl));
     }
     return messageValidator.validate(clientMessage);
   }
