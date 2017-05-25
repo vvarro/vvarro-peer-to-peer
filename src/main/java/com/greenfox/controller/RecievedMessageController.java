@@ -31,7 +31,7 @@ public class RecievedMessageController {
       Message receivedMessage = clientMessage.getMessage();
       messageRepository.save(receivedMessage);
       RestTemplate getTemplate = new RestTemplate();
-      getTemplate.exchange("/", HttpMethod.GET, null, String.class);
+      getTemplate.exchange(projectUrl, HttpMethod.GET, null, String.class);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
     }
