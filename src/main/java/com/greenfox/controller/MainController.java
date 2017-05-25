@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class MainController {
+
   private static final String url = System.getenv("CHAT_APP_PEER_ADDRESS") + "/api/message/receive";
   private static final String privateId = System.getenv("CHAT_APP_UNIQUE_ID");
 
@@ -40,8 +41,6 @@ public class MainController {
       return "index";
     }
   }
-
-
 
   @GetMapping("/update")
   public String updateUser(@RequestParam("newusername") String newUsername,
@@ -69,11 +68,11 @@ public class MainController {
       return "redirect:/enter";
     } else {
       Client client = new Client();
-      Message message = new Message(send,userRepository.findOne((long) 1).getName());
+      Message message = new Message(send, userRepository.findOne((long) 1).getName());
       messageRepository.save(message);
       ClientMessage clientMessage = new ClientMessage(client, message);
       RestTemplate restTemplate = new RestTemplate();
-      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
+      restTemplate.postForObject(url, clientMessage, ResponseMessage.class);
       return "redirect:/";
     }
   }
