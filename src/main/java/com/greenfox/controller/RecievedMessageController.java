@@ -30,10 +30,10 @@ public class RecievedMessageController {
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
       Message receivedMessage = clientMessage.getMessage();
       messageRepository.save(receivedMessage);
-      RestTemplate restTemplate = new RestTemplate();
-      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
       RestTemplate getTemplate = new RestTemplate();
       getTemplate.exchange("/", HttpMethod.GET, null, String.class);
+      RestTemplate restTemplate = new RestTemplate();
+      restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
     }
     return messageValidator.validate(clientMessage);
   }
