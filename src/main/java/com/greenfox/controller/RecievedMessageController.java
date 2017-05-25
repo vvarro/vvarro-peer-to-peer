@@ -5,6 +5,8 @@ import com.greenfox.model.Message;
 import com.greenfox.repository.MessageRepository;
 import com.greenfox.service.MessageValidator;
 import com.greenfox.service.ResponseMessage;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,13 +27,15 @@ public class RecievedMessageController {
 
   @PostMapping("/api/message/receive")
   @CrossOrigin("*")
-  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage){
+  public ResponseMessage validateMessage (@RequestBody ClientMessage clientMessage)
+      throws URISyntaxException {
     MessageValidator messageValidator = new MessageValidator();
     if(messageValidator.validate(clientMessage).getStatus().equals("ok") && !clientMessage.getClient().getId().equals(uniqueId)){
       Message receivedMessage = clientMessage.getMessage();
       messageRepository.save(receivedMessage);
+      URI uri = new URI(projectUrl);
       RestTemplate getTemplate = new RestTemplate();
-      getTemplate.exchange(projectUrl, HttpMethod.GET, null, String.class);
+      getTemplate.exchange(uri, HttpMethod.GET, null, String.class);
       RestTemplate restTemplate = new RestTemplate();
       restTemplate.postForObject(url, clientMessage,ResponseMessage.class);
     }
